@@ -18,5 +18,7 @@ After that, the repository will be extended toward deeper topics in statistical 
 Besides the solutions in this repository, I also maintain a set of lecture notes for **Stanford CS109 Probability for Computer Scientists**, Chris Piech:
 
 - Probability and Statistics Lecture Notes: [https://superb-beginner-987.notion.site/Probability-1a87a617a42d81a9a492fb89f50f37ce?p=1ad7a617a42d80e6abb4e7057837dcf4&pm=s]
+
 (please choose "Notebook Notes" tab to see the notes)
+
 These notes contain summaries of theoretical concepts, derivations collected during my self-study process.
