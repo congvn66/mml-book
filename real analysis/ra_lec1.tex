@@ -1,0 +1,423 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+
+\usepackage{amsmath}      % Mathematical environments: align, equation, etc.
+\usepackage{amsthm}       % Theorem, definition, proof environments
+\usepackage{amsfonts}     % Mathematical fonts such as \mathbb
+\usepackage{amssymb}      % Additional mathematical symbols
+\usepackage{mathtools}    % Extensions to amsmath
+\usepackage{geometry}     % Page margins
+\usepackage{enumitem}     % Customize enumerate/itemize
+\usepackage{mdframed}     % Framed boxes
+\usepackage{tikz}         % Draw diagrams
+\usepackage{hyperref}     % Clickable references and links
+
+\geometry{
+    letterpaper,
+    margin=0.8in
+}
+
+\linespread{1.2}
+
+
+% ============================================================
+% NUMBER SYSTEMS
+% ============================================================
+% Instead of writing \mathbb{R} every time, use \RR.
+
+\newcommand{\RR}{\mathbb{R}}   % Real numbers
+\newcommand{\CC}{\mathbb{C}}   % Complex numbers
+\newcommand{\NN}{\mathbb{N}}   % Natural numbers
+\newcommand{\ZZ}{\mathbb{Z}}   % Integers
+\newcommand{\QQ}{\mathbb{Q}}   % Rational numbers
+
+
+% ============================================================
+% COMMON MATHEMATICAL NOTATION
+% ============================================================
+% These commands are useful for frequently used notation.
+
+\newcommand{\set}[1]{\left\{#1\right\}}
+% Example:
+%   \set{x \in \RR : x > 0}
+% produces:
+%   { x in R : x > 0 }
+
+\newcommand{\abs}[1]{\left|#1\right|}
+% Example:
+%   \abs{x-y}
+% produces:
+%   |x-y|
+
+\newcommand{\norm}[1]{\left\|#1\right\|}
+% Example:
+%   \norm{x}
+% produces:
+%   ||x||
+
+\newcommand{\inner}[2]{\left\langle #1,#2\right\rangle}
+% Example:
+%   \inner{x}{y}
+% produces:
+%   <x,y>
+
+\newcommand{\parens}[1]{\left(#1\right)}
+% Example:
+%   \parens{x+y}
+
+\newcommand{\brac}[1]{\left[#1\right]}
+% Example:
+%   \brac{a,b}
+
+\newcommand{\angles}[1]{\left\langle #1\right\rangle}
+% Example:
+%   \angles{x,y}
+
+
+% ============================================================
+% THEOREM / THEORY COMPONENTS
+% ============================================================
+
+% "definition" style is upright text.
+% Use this for definitions, examples, and remarks.
+
+\theoremstyle{definition}
+
+% ------------------------------------------------------------
+% DEFINITION
+% ------------------------------------------------------------
+% Use when introducing a formal mathematical definition.
+%
+% Usage:
+%
+% \begin{definition}[Metric]
+% A metric on a set X is a function ...
+% \end{definition}
+%
+% [Metric] is optional and gives the definition a name.
+
+\newtheorem{definition}{Definition}[section]
+
+
+% ------------------------------------------------------------
+% EXAMPLE
+% ------------------------------------------------------------
+% Use to give a concrete example of a definition/theorem.
+%
+% Usage:
+%
+% \begin{example}
+% Consider X = \RR with the usual distance.
+% \end{example}
+
+\newtheorem{example}[definition]{Example}
+
+
+% ------------------------------------------------------------
+% REMARK
+% ------------------------------------------------------------
+% Use for observations, comments, or small additional facts.
+% It is NOT intended for major mathematical results.
+%
+% Usage:
+%
+% \begin{remark}
+% This definition does not require X to be a subset of \RR^n.
+% \end{remark}
+
+\newtheorem{remark}[definition]{Remark}
+
+
+% ============================================================
+% THEOREM-LIKE COMPONENTS
+% ============================================================
+
+% "plain" style makes the mathematical statements italic.
+
+\theoremstyle{plain}
+
+
+% ------------------------------------------------------------
+% THEOREM
+% ------------------------------------------------------------
+% Use for an important/general mathematical result.
+%
+% Usage:
+%
+% \begin{theorem}[Cauchy--Schwarz Inequality]
+% For all x,y \in \RR^n,
+% \[
+% |\inner{x}{y}| \leq \norm{x}\norm{y}.
+% \]
+% \end{theorem}
+
+\newtheorem{theorem}[definition]{Theorem}
+
+
+% ------------------------------------------------------------
+% PROPOSITION
+% ------------------------------------------------------------
+% Use for a useful mathematical result that is usually less
+% central than a theorem.
+%
+% Usage:
+%
+% \begin{proposition}
+% Every finite-dimensional subspace of \RR^n is closed.
+% \end{proposition}
+
+\newtheorem{proposition}[definition]{Proposition}
+
+
+% ------------------------------------------------------------
+% LEMMA
+% ------------------------------------------------------------
+% Use for an auxiliary result whose main purpose is to help
+% prove another theorem/proposition.
+%
+% Usage:
+%
+% \begin{lemma}
+% ...
+% \end{lemma}
+
+\newtheorem{lemma}[definition]{Lemma}
+
+
+
+
+% ------------------------------------------------------------
+% COROLLARY
+% ------------------------------------------------------------
+% Use for a result that follows relatively directly from a
+% theorem/proposition that was just established.
+%
+% Usage:
+%
+% \begin{corollary}
+% ...
+% \end{corollary}
+
+\newtheorem{corollary}[definition]{Corollary}
+
+
+% ============================================================
+% PROOF
+% ============================================================
+% The proof environment comes from amsthm.
+%
+% Usage:
+%
+% \begin{proof}
+% Suppose that ...
+%
+% Therefore, ...
+% \end{proof}
+%
+% LaTeX automatically adds the QED symbol at the end.
+
+
+% ============================================================
+% CUSTOM BOX: IDEA
+% ============================================================
+% Use this when you want to record intuition or the main idea
+% behind a mathematical concept.
+%
+% Usage:
+%
+% \begin{idea}
+% \textbf{Key idea.}
+% A metric gives us a notion of distance...
+% \end{idea}
+
+\newmdenv[
+    linewidth=1pt,
+    skipabove=10pt,
+    skipbelow=10pt
+]{idea}
+
+
+% ============================================================
+% CUSTOM BOX: WARNING
+% ============================================================
+% Use this for common mistakes, distinctions, or things that
+% are easy to confuse.
+%
+% Usage:
+%
+% \begin{warning}
+% Do not confuse continuity with uniform continuity.
+% \end{warning}
+
+\newmdenv[
+    linewidth=1pt,
+    skipabove=10pt,
+    skipbelow=10pt
+]{warning}
+
+% ============================================================
+% CUSTOM BOX: NOTE
+% ============================================================
+% Use this for a short personal note, useful observation,
+% connection between concepts, or explanation.
+%
+% Unlike "Remark", this is intended for informal notes.
+%
+% Usage:
+%
+% \begin{note}
+% A sequence can be viewed as a function from $\NN$ to $\RR$.
+% \end{note}
+
+\newmdenv[
+    linewidth=1pt,
+    skipabove=10pt,
+    skipbelow=10pt
+]{note}
+
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+
+\begin{document}
+
+
+% ============================================================
+% TITLE
+% ============================================================
+
+\begin{center}
+    {\Large \textbf{Notations and The construction of $\mathbb{Q}$}}\\[0.5em]
+    {\large Lecture 1}
+\end{center}
+
+% Automatically generate the table of contents.
+\tableofcontents
+
+\newpage
+
+
+% ============================================================
+% SECTION
+% ============================================================
+% Use \section{} for a major topic.
+%
+% Example:
+%   \section{Metric Spaces}
+
+\section{Notations}
+
+% ============================================================
+% SUBSECTION
+% ============================================================
+% Use \subsection{} when dividing a section into smaller topics.
+%
+% Example:
+%   \subsection{Open Balls}
+
+\begin{note}
+Consider $x$, which is transcendental, if and only if $x$ is not the root of \textbf{any} non-zero polynomials, with integer coefficients.
+\end{note}
+
+\subsection{Set and Relations}
+
+% ============================================================
+% DEFINITION
+% ============================================================
+
+\begin{definition}[Set]
+Set is a collection of (non-overlap) objects.
+\end{definition}
+
+\begin{note}
+You can put anything in a set: numbers, even a smiley face, or the logo of "League of Legends".
+\end{note}
+
+
+
+
+% ============================================================
+% REMARK
+% ============================================================
+
+\begin{remark}
+We have 2 ways (at least) to describe a set, which is: list all of the objects in the set $B = \{a, b, c\}$ or tell the properties of objects in the set $A = \{x: x<2\}$.
+\end{remark}
+
+After that, the lecture introduced the notation of in ($\in$), not in ($\notin$), empty set ($\emptyset$), subset or equal ($\subseteq$), proper subset ($\subset$), and the condition for equal set ($A \subset B$ and $B \subset A$, then $A = B$).
+
+\subsection{Operators on sets}
+
+\begin{definition}[Union of sets]
+$A \cup B$, is a set, which elements are $\in A$ or $\in B$.
+\end{definition}
+
+\begin{definition}[Intersection of sets]
+$A \cap B$, is a set, which elements are $\in A$ and $\in B$.    
+\end{definition}
+
+\begin{definition}[Complement of sets]
+$A^c$, is everything that not in A.
+\end{definition}
+
+\begin{definition}[Set minus]
+$B \setminus A$, which is everything in B, but not in A.
+\end{definition}
+
+\begin{definition}[Set product]
+$A \times B$, is a set of ordered pairs $(a, b)$, which $a \in A$ and $b \in B$.    
+\end{definition}
+
+\subsection{Relations}
+
+\begin{definition}[Relation]
+$R$, which is a relation, is a subset of $A \times B$. If $(a, b) \in R$ (we can say that: $a$ has relation $R$ with $b$) then we could write $aRb$.
+\end{definition}
+
+\begin{example}
+$L$: loves, which is define on the set $P \times P$ (People $\times$ People). A pair $(Alex, Trix) \in L$, means that Alex is in love with Trix.
+\end{example}
+
+\begin{definition}[Equivalence relation]
+An equivalence relation on a set $S$, is a relation $R$ over $S \times S$, such that:
+\begin{itemize}
+    \item \textbf{Reflexive} $aRa$ (means that $(a, a) \in R$).
+    \item \textbf{Symmetric} $aRb \Rightarrow bRa$
+    \item \textbf{Transitive} $aRb$ and $bRc$ $\Rightarrow$ $aRc$
+\end{itemize}
+\end{definition}
+
+\begin{example}
+$R$: 2 people in the same room is a equivalence relations.    
+\end{example}
+
+\begin{definition}[Function]
+A function $F$ from $A$ to $B$ is a relation over $A \times B$ such that if $aFb$ and $aFb'$ then $b = b'$ (assign each $a$ to a unique $b$?).    
+\end{definition}
+
+\begin{remark}
+We can just write $F(a)=b$ instead of $aFb$.
+\end{remark}
+
+\section{The Construction of Rational numbers}
+\begin{note}
+$\mathbb{Q}$, indeed, is a set, with the elements is "class" (to be more precise, "equivalence class"). But what is this "class"? These classes contains all pairs $(p,q) \in \mathbb{Z} \times (\mathbb{Z} \setminus \{0\})$  such that $(p,q)$ is in a equivalence relation with a given $(m,n)$ if $pn=qm$ and $q,n \neq 0$. We have: $[(m,n)]=\{(p,q) \in \mathbb{Z}\times (\mathbb{Z}\setminus {0}):(p,q) \sim (m,n)\}$. And note that, the important thing is, we want the arithmetic on $\mathbb{Z}$ is preserved on $\mathbb{Q}$.
+\end{note}
+
+
+\begin{definition}[Rational numbers $\mathbb{Q}$]
+$\mathbb{Q} = \{\frac{p}{q}: p,q \in \mathbb{Z}, q \neq 0\}$ with $\frac{p}{q}$ is the equivalence class described above.
+\end{definition}
+
+\begin{note}
+You may wonder if there exist both equivalence class of $(1,2)$ and $(3, 6)$. However, in set, the elements are non-overlap, and $[(1,2)] = [(3,6)]$. So, don't worry.
+\end{note}
+
+\begin{note}
+About the equivalence relation for $(p,q)$ and $(m,n)$, it is a equivalence relation, satisfied all 3 conditions above.
+\end{note}
+\end{document}
