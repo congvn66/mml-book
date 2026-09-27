@@ -1,0 +1,128 @@
+%% Thanks to Bennet Goeckner for giving me his TeX template, which this is based on. 
+%% These percent symbols tell the compiler to ignore the remainder of a given line.
+%% We use them to write comments that will not appear in the finalized output.
+
+%% The following tells the compiler which type of document we're making.
+%% There are many options. ``Article'' is probably fine for our class.
+\documentclass[12pt]{article}
+
+%% After declaring the documentclass, we load some packages which give us 
+%% some built-in commands and more functionality. 
+%% The following is a list of packages that this file might use.
+%% If a command you're using isn't working, try Googling it -- you might need to add a specific package.
+%% I have included the standard ones that I like to load.
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{multicol}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage[margin = .8in]{geometry}
+\geometry{letterpaper}
+\linespread{1.2}
+
+%% One of the nicest things about LaTeX is you can create custom macros. If  there is a long-ish expression that you will write often, it is nice to give it a shorter command.
+%% For our common number systems.
+\newcommand{\RR}{\mathbb{R}} %% The blackboard-bold R that you have seen used for real numbers is typeset by $\mathbb{R}$. This macro means that $\RR$ will yield the same result, and is much shorter to type.
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}} 
+\newcommand{\QQ}{\mathbb{Q}}
+
+%% Your macros can even accept arguments. 
+\newcommand\set[1]{\left\lbrace #1 \right\rbrace} %% In mathmode, if you write \set{STUFF}, then this will output {STUFF}, i.e. STUFF inside of a set
+\newcommand\abs[1]{\left| #1 \right|} %% This will do the same but with vertical bars. I.e., \abs{STUFF} gives |STUFF|
+\newcommand\parens[1]{\left( #1 \right)} %% Similar. \parens{STUFF} gives (STUFF)
+\newcommand\brac[1]{\left[ #1 \right]} %% Similar. \brac{STUFF} gives [STUFF]
+\newcommand\sol[1]{\begin{mdframed}
+\emph{Solution.} #1
+\end{mdframed}}
+\newcommand\solproof[1]{\begin{mdframed}
+\begin{proof} #1
+\end{proof}
+\end{mdframed}}
+%% A few more important commands:
+
+%% You should start every proof with \begin{proof} and end it with \end{proof}.  
+%%
+%% Code inside single dollar signs will give in-line mathmode. I.e., $f(x) = x^2$ 
+%% Code \[ \] will give mathmode centered on its own line.
+%%
+%% Other common commands:
+%%	\begin{align*} and \end{align*} -- Good for multiline equations
+%%	\begin{align} and \end{align} -- Same as above, but it will number the equations for easy reference
+%%	\emph{italicized text here} and \textbf{bold text here} are also useful.
+%%
+%% Some very specific mathmode commands and their meanings:
+%%	x \in A -- x is an element of A
+%%	x \notin A -- x is not an element of A
+%%	A \subseteq B -- A is a subset of B
+%%	A \subsetneq B -- A is a proper subset of B
+%%	x \equiv y \pmod{n} -- x is congruent to y mod n. 
+%%	x \geq y and x \leq y -- Greater than or equal to and less than or equal to 
+%%
+%% You'll probably find lots of relevant commands in the question prompts. Also Google is your friend!
+
+\begin{document}
+\begin{center}
+  {\large Real analysis HW2}
+\end{center}
+\section{Part A}
+With Part A, problems are solved in lecture note 2.
+\section{Part B}
+
+\begin{enumerate}
+\item If $r \neq 0$ is rational and $x$ is irrational. Prove that $x+r$ and $rx$ are irrational.  
+
+\solproof{
+Proof (by contradiction):
+
+Assume $x+r$ is rational. Hence, we have $x = (x+r) - r$ with $(x-r) \in \QQ$ and $-r \in \QQ$, then $x \in \QQ$ because sum of 2 rational is a rational. We have contradiction here, so $x+r$ must be irrational.
+
+Assume $rx$ is rational. Given $r = \frac{a}{b}\neq 0$, we have $x = \frac{a}{b}\frac{b}{a}x$ with $\frac{a}{b}x = rx \in \QQ$ and $\frac{b}{a}\in\QQ$ then $x \in \QQ$, which is a contradiction. So, $rx$ must be irrational.
+}
+
+\item Prove that there is no rational number whose square is 12.  
+
+\solproof{
+Proof (by contradiction):
+Similar to the proof for $\sqrt{2}$, we need to proof that $x^2 = 12$ has no solution in $\QQ$.
+
+Assume $x \in \QQ$ and $x = \frac{p}{q}$ and WLOG, $\operatorname{GCD}(p,q)=1$. We have:
+
+$(\frac{p}{q})^2 = 12$.
+
+$\Leftrightarrow p^2 = 12q^2$.
+
+$\Rightarrow p^2$ is divisible to 12 $= 2^2 \times 3$.
+
+$\Leftrightarrow p$ is divisible to both 2 and 3. Hence $p$ has the form $2\times 3 m$ with $m \in \ZZ$.
+
+Substitute into $p^2 = 12q^2$, we have:
+
+$(2\times3)^2m^2 = 2^2\times 3\times q^2$
+
+$\Leftrightarrow 3m^2 = q^2$
+
+$\Rightarrow q^2$ is divisible by 3.
+
+$\Leftrightarrow q$ is divisible by 3.
+
+Then, $p,q$ has a common divisor which greater than 1. Contradiction.
+
+Thus, there is no rational number whose square is 12.
+}
+
+
+\item Prove that with the axiom for multiplication of a field, we have: If $x \neq 0$ and $xy=xz$ then $y=z$.  
+\solproof{
+Just multiply the multiplicative inverse of $x$ on both side, then use commutative, associative and multiplicative inverse, we obtained $y=z$.
+}
+
+
+
+\end{enumerate}
+\end{document}
