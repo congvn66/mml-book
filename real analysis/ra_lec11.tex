@@ -1,0 +1,378 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+
+\usepackage{amsmath}      % Mathematical environments: align, equation, etc.
+\usepackage{amsthm}       % Theorem, definition, proof environments
+\usepackage{amsfonts}     % Mathematical fonts such as \mathbb
+\usepackage{amssymb}      % Additional mathematical symbols
+\usepackage{mathtools}    % Extensions to amsmath
+\usepackage{geometry}     % Page margins
+\usepackage{enumitem}     % Customize enumerate/itemize
+\usepackage{mdframed}     % Framed boxes
+\usepackage{tikz}         % Draw diagrams
+\usepackage{hyperref}     % Clickable references and links
+
+\geometry{
+    letterpaper,
+    margin=0.8in
+}
+
+\linespread{1.2}
+
+
+% ============================================================
+% NUMBER SYSTEMS
+% ============================================================
+% Instead of writing \mathbb{R} every time, use \RR.
+
+\newcommand{\RR}{\mathbb{R}}   % Real numbers
+\newcommand{\CC}{\mathbb{C}}   % Complex numbers
+\newcommand{\NN}{\mathbb{N}}   % Natural numbers
+\newcommand{\ZZ}{\mathbb{Z}}   % Integers
+\newcommand{\QQ}{\mathbb{Q}}   % Rational numbers
+
+
+% ============================================================
+% COMMON MATHEMATICAL NOTATION
+% ============================================================
+% These commands are useful for frequently used notation.
+
+\newcommand{\set}[1]{\left\{#1\right\}}
+% Example:
+%   \set{x \in \RR : x > 0}
+% produces:
+%   { x in R : x > 0 }
+
+\newcommand{\abs}[1]{\left|#1\right|}
+% Example:
+%   \abs{x-y}
+% produces:
+%   |x-y|
+
+\newcommand{\norm}[1]{\left\|#1\right\|}
+% Example:
+%   \norm{x}
+% produces:
+%   ||x||
+
+\newcommand{\inner}[2]{\left\langle #1,#2\right\rangle}
+% Example:
+%   \inner{x}{y}
+% produces:
+%   <x,y>
+
+\newcommand{\parens}[1]{\left(#1\right)}
+% Example:
+%   \parens{x+y}
+
+\newcommand{\brac}[1]{\left[#1\right]}
+% Example:
+%   \brac{a,b}
+
+\newcommand{\angles}[1]{\left\langle #1\right\rangle}
+% Example:
+%   \angles{x,y}
+
+
+% ============================================================
+% THEOREM / THEORY COMPONENTS
+% ============================================================
+
+% "definition" style is upright text.
+% Use this for definitions, examples, and remarks.
+
+\theoremstyle{definition}
+
+% ------------------------------------------------------------
+% DEFINITION
+% ------------------------------------------------------------
+% Use when introducing a formal mathematical definition.
+%
+% Usage:
+%
+% \begin{definition}[Metric]
+% A metric on a set X is a function ...
+% \end{definition}
+%
+% [Metric] is optional and gives the definition a name.
+
+\newtheorem{definition}{Definition}[section]
+
+
+% ------------------------------------------------------------
+% EXAMPLE
+% ------------------------------------------------------------
+% Use to give a concrete example of a definition/theorem.
+%
+% Usage:
+%
+% \begin{example}
+% Consider X = \RR with the usual distance.
+% \end{example}
+
+\newtheorem{example}[definition]{Example}
+
+
+% ------------------------------------------------------------
+% REMARK
+% ------------------------------------------------------------
+% Use for observations, comments, or small additional facts.
+% It is NOT intended for major mathematical results.
+%
+% Usage:
+%
+% \begin{remark}
+% This definition does not require X to be a subset of \RR^n.
+% \end{remark}
+
+\newtheorem{remark}[definition]{Remark}
+
+
+% ============================================================
+% THEOREM-LIKE COMPONENTS
+% ============================================================
+
+% "plain" style makes the mathematical statements italic.
+
+\theoremstyle{plain}
+
+
+% ------------------------------------------------------------
+% THEOREM
+% ------------------------------------------------------------
+% Use for an important/general mathematical result.
+%
+% Usage:
+%
+% \begin{theorem}[Cauchy--Schwarz Inequality]
+% For all x,y \in \RR^n,
+% \[
+% |\inner{x}{y}| \leq \norm{x}\norm{y}.
+% \]
+% \end{theorem}
+
+\newtheorem{theorem}[definition]{Theorem}
+
+
+% ------------------------------------------------------------
+% PROPOSITION
+% ------------------------------------------------------------
+% Use for a useful mathematical result that is usually less
+% central than a theorem.
+%
+% Usage:
+%
+% \begin{proposition}
+% Every finite-dimensional subspace of \RR^n is closed.
+% \end{proposition}
+
+\newtheorem{proposition}[definition]{Proposition}
+
+
+% ------------------------------------------------------------
+% LEMMA
+% ------------------------------------------------------------
+% Use for an auxiliary result whose main purpose is to help
+% prove another theorem/proposition.
+%
+% Usage:
+%
+% \begin{lemma}
+% ...
+% \end{lemma}
+
+\newtheorem{lemma}[definition]{Lemma}
+
+
+
+
+% ------------------------------------------------------------
+% COROLLARY
+% ------------------------------------------------------------
+% Use for a result that follows relatively directly from a
+% theorem/proposition that was just established.
+%
+% Usage:
+%
+% \begin{corollary}
+% ...
+% \end{corollary}
+
+\newtheorem{corollary}[definition]{Corollary}
+
+
+% ============================================================
+% PROOF
+% ============================================================
+% The proof environment comes from amsthm.
+%
+% Usage:
+%
+% \begin{proof}
+% Suppose that ...
+%
+% Therefore, ...
+% \end{proof}
+%
+% LaTeX automatically adds the QED symbol at the end.
+
+
+% ============================================================
+% CUSTOM BOX: IDEA
+% ============================================================
+% Use this when you want to record intuition or the main idea
+% behind a mathematical concept.
+%
+% Usage:
+%
+% \begin{idea}
+% \textbf{Key idea.}
+% A metric gives us a notion of distance...
+% \end{idea}
+
+\newmdenv[
+    linewidth=1pt,
+    skipabove=10pt,
+    skipbelow=10pt
+]{idea}
+
+
+% ============================================================
+% CUSTOM BOX: WARNING
+% ============================================================
+% Use this for common mistakes, distinctions, or things that
+% are easy to confuse.
+%
+% Usage:
+%
+% \begin{warning}
+% Do not confuse continuity with uniform continuity.
+% \end{warning}
+
+\newmdenv[
+    linewidth=1pt,
+    skipabove=10pt,
+    skipbelow=10pt
+]{warning}
+
+% ============================================================
+% CUSTOM BOX: NOTE
+% ============================================================
+% Use this for a short personal note, useful observation,
+% connection between concepts, or explanation.
+%
+% Unlike "Remark", this is intended for informal notes.
+%
+% Usage:
+%
+% \begin{note}
+% A sequence can be viewed as a function from $\NN$ to $\RR$.
+% \end{note}
+
+\newmdenv[
+    linewidth=1pt,
+    skipabove=10pt,
+    skipbelow=10pt
+]{note}
+
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+
+\begin{document}
+
+
+% ============================================================
+% TITLE
+% ============================================================
+
+\begin{center}
+    {\Large \textbf{Compact Sets}}\\[0.5em]
+    {\large Lecture 11}
+\end{center}
+
+\tableofcontents
+
+\newpage
+
+\begin{quote}
+Next best thing to being finite is compact.
+\end{quote}
+\section{Compact sets}
+
+\begin{note}
+Compact sets have a lot of common nice properties with finite sets.
+\end{note}
+
+
+\begin{definition}[Open covers]
+A (open) cover of $E$ in $X$ is a collection $\{G_{\alpha}\}$ of open sets that the union of that set contains $E$.
+\end{definition}
+
+\begin{example}
+We want to find cover sets of $E = (0, 1)$. We have $\{(-1,2)\}$ is a cover set, $\RR$ is a cover set, $\{V_n\}_{n=3}^{\infty} \text{ with } V_n = (\frac{1}{n}, 1-\frac{1}{n})$ is a cover set. In the last case, we can see that, we do not need every $V_n$ in order to cover $E$, but we still need to have infinitely many of them to cover $E$.
+\end{example}
+
+\begin{definition}[Subcover]
+A subcover of a cover is a subcollection of that cover that still covers $E$.
+\end{definition}
+
+\begin{definition}[Compact sets]
+A set $K$ in $X$ is called compact (in $X$) if \textbf{every} open cover of $K$ has a finite subcover.
+\end{definition}
+
+\begin{example}
+Here are some examples:
+\begin{itemize}
+    \item $(0,1)$ is not compact in $\RR$, as we showed that, $\{V_n\}$ has no finite subcover.
+    \item $\ZZ$ is not compact in $\RR$. The open cover with each integer endowed with an open ball, that open cover has no finite subcover.
+    \item $[0,1]$ is compact.
+    \item Finite set is compact.
+\end{itemize}
+\end{example}
+
+\begin{note}
+Showing a set is compact is not showing \textbf{a} cover has a finite subcover.
+\end{note}
+
+\subsection{Properties of compact sets}
+\begin{definition}[Bounded sets]
+Set $K$ is bounded if $\exists M\in\RR, p \in X, \text{ s.t. } K\in N_M(p)$.
+\end{definition}
+
+\begin{theorem}
+$K$ is compact in $X$ $\Rightarrow$ $K$ is bounded.
+\end{theorem}
+
+\begin{note}
+The idea for proving the theorem above is quite interesting, it construct a finite set of unit-1 balls to cover the set (given it is compact), then find the max distance between those center and let the bounding ball has the radius of max distance $+2$. Sound very barbaric, but somehow elegant.
+\end{note}
+
+\begin{theorem}
+$K$ is compact in $X$, then $K$ is closed.
+\end{theorem}
+
+\section{Relative open sets}
+\begin{proposition}
+$Y \in X \text{ metric}$ then $Y$ also a metric space. We can say that, $Y$ inherited the metric of $X$. 
+\end{proposition}
+
+\begin{definition}[Relative nbhd]
+A nbhd $N_r(x)$ in $X$ is $\{p:d(x,p)<r \text{ for } p \in X\}$.
+
+A nbhd $N_r(x)$ in $Y$ is $\{p:d(x,p)<r \text{ for } p \in Y\}$.
+\end{definition}
+
+\begin{definition}[Relative open set]
+A set $U$ is open in $Y$ if every point in $U$ is an interior point of $U$ in $Y$ (using $Y$ nbhd).
+\end{definition}
+
+\begin{theorem}
+Given $E\subset Y \subset X$, then $E$ open in $Y$ $\iff$ $E = Y \cap G$ with some $G$ open in $X$.
+\end{theorem}
+
+\end{document}
