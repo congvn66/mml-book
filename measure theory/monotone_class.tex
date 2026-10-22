@@ -1,0 +1,151 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% ==================================================
+% 1. PACKAGES
+% ==================================================
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+% ==================================================
+% 2. MATHEMATICAL ENVIRONMENTS
+% ==================================================
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{exercise}[definition]{Exercise}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{counterexample}[definition]{Counterexample}
+\newtheorem{note}[definition]{Note}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+
+% ==================================================
+% 3. PERSONAL NOTE BOX
+% ==================================================
+
+\newtcolorbox{mynote}[1][Personal Note]{
+    enhanced,
+    breakable,
+    colback=yellow!5,
+    colframe=yellow!50!black,
+    title={#1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+}
+
+% ==================================================
+% 4. CUSTOM MATHEMATICAL COMMANDS
+% ==================================================
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\inner}[2]{\left\langle #1,#2 \right\rangle}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+% ==================================================
+% 5. DOCUMENT INFORMATION
+% ==================================================
+
+\title{\textbf{The monotone class theorem}}
+
+% ==================================================
+% 6. DOCUMENT
+% ==================================================
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Motivation}
+
+\begin{mynote}[The weaker algebra]
+You may see in later parts, monotone class doesn't have closeness in complement. You can see Exercise 3.2 for more visualization.
+\end{mynote}
+
+\begin{mynote}[Why monotone class?]
+Monotone class is a kind of "tool" for us to prove some theorems or some proposition, not like algebra (which is the must-have condition). For example, we have some results on a very simple set, but we want those results appear in the more complex, bigger set. Then, monotone class provide "tools" to extend it, as long as the initial set is already an algebra and the result is preserved through monotonic limit.
+\end{mynote}
+
+\section{Notations}
+$A_i\uparrow$ if $A_1 \subset A_2 \subset A_3 ...$.
+
+$A_i \uparrow A$ if $A_1 \subset A_2 \subset A_3 ...$ and $A = \bigcup_{i=1}^{\infty}A_i$.
+
+$A_i \downarrow$ if $A_1 \supset A_2 \supset A_3 ...$.
+
+$A_i \downarrow A$ if $A_1 \supset A_2 \supset A_3 ...$ and $A = \bigcap_{i=1}^{\infty}A_i$
+
+\section{Definition and properties}
+\begin{definition}[Monotone class]
+A monotone class is a collection of subsets $\mathcal{M}$ of $X$ such that:
+\begin{itemize}
+    \item if $A_i \uparrow A$ and each $A_i \in \mathcal{M}$, then $A \in \mathcal{M}$.
+    \item if $A_i \downarrow A$ and each $A_i \in \mathcal{M}$, then $A \in \mathcal{M}$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Intersection of monotone class]
+Intersection of monotone class is still a monotone class (not union).
+\end{theorem}
+
+\begin{theorem}[Smallest monotone]
+Suppose $\A_0$ is an algebra, $\A$ is the smallest $\sigma$-algebra containing $\A_0$, and $\mathcal{M}$ is the smallest monotone class containing $\A_0$. Then $\mathcal{M} = \A$.
+\end{theorem}
+
+\section{Exercises}
+
+All exercises in this note are from "Real analysis for Graduate Students" by Richard F. Bass.
+
+\begin{exercise}
+\textbf{\textit{See Exercise 2.1 p.15}}
+
+Let $X = \{1,2\}$, $\mathcal{M} = \{\emptyset, \{1\}, X\}$. $\mathcal{M}$ is a monotone class (easy to check), but not closed in complement (no complement of $\{1\}$). Therefore, $\mathcal{M}$ is a monotone class but not a algebra.
+\end{exercise}
+
+\begin{exercise}
+\textbf{\textit{See Exercise 2.4 p.15}}
+
+Let $\mathcal{M}_n = \mathcal{P}(\{1,2,...,n\})$, and $\mathcal{M}_i$ is a monotone class (easy to confirm). We have $\mathcal{M}_1 \subset \mathcal{M}_2\subset ...$ and $\bigcup_i^{\infty}\mathcal{M}_i = \{A\subseteq \N: A \text{ finite}\}$. Let $A_j = \{1,2,3,...,j\}$, then $\bigcup_i^{\infty}A_i = \N$. But $\N$ doesn't belong to any $\mathcal{M}_i$ (lack of number). Thus, $\N \not\in \mathcal{M}$.
+\end{exercise}
+
+\end{document}

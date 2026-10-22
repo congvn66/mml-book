@@ -1,0 +1,274 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% ==================================================
+% 1. PACKAGES
+% ==================================================
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+% ==================================================
+% 2. MATHEMATICAL ENVIRONMENTS
+% ==================================================
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{exercise}[definition]{Exercise}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{counterexample}[definition]{Counterexample}
+\newtheorem{note}[definition]{Note}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+
+% ==================================================
+% 3. PERSONAL NOTE BOX
+% ==================================================
+
+\newtcolorbox{mynote}[1][Personal Note]{
+    enhanced,
+    breakable,
+    colback=yellow!5,
+    colframe=yellow!50!black,
+    title={#1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+}
+
+% ==================================================
+% 4. CUSTOM MATHEMATICAL COMMANDS
+% ==================================================
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\inner}[2]{\left\langle #1,#2 \right\rangle}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+% ==================================================
+% 5. DOCUMENT INFORMATION
+% ==================================================
+
+\title{\textbf{Algebras and $\sigma$-algebras}}
+
+% ==================================================
+% 6. DOCUMENT
+% ==================================================
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Motivation}
+\begin{mynote}[Why $\sigma$-algebras?]
+For further chapters, if we want to construct measures, we will see that we can't define measure for arbitrary set. So we gonna limit those sets to a class, which is $\sigma$-algebras.
+\end{mynote}
+
+\section{Definitions, Examples and Properties}
+\begin{definition}[Algebra]
+An algebra is a collection of $\mathcal{A}$ of subsets of $X$ such that:
+\begin{itemize}
+    \item \textbf{1.} $\emptyset \in \A$ and $X\in \A$.
+    \item \textbf{2.} if $A \in \A$ then $A^c \in \A$.
+    \item \textbf{3.} if $A_1, A_2,A_3,..., A_n\in \A$, then the union of $A_i$ and the intersection of $A_i$ are in $\A$.  
+\end{itemize}
+\end{definition}
+
+\begin{definition}[$\sigma$-algebra]
+$\A$ is a $\sigma$-algebra if $\A$ is an algebra and whenever $A_1, A_2,... \in \A$, then the union (may infinite but countable) and the intersection (may infinite but countable) of $A_i$ is in $\A$.
+
+The pair $(X, \A)$ called measurable space. A set $A$ is measurable or $\A$ measurable if $A \in \A$ (note that, $\A$ has to be $\sigma$-algebra, not just  algebra).
+\end{definition}
+
+\begin{note}
+If we have $2.$ (closed in complement) and closed in union, we can imply closed in intersection.
+\end{note}
+
+\begin{mynote}[What to focus?]
+The main object in this part is indeed, algebra. Sigma algebra just extends algebra to countable infinite intersection and union.    
+\end{mynote}
+
+\begin{mynote}[Our old friend, subspace]
+You may see this algebra object as a kind of "subspace" of the power set of $X$ (the set that contains all subset of $X$). To see the "symmetry" (not exactly) in this scenario, we have an $\sigma$-algebra $\A$ of $X$, then:
+\begin{itemize}
+    \item $\A \subseteq \mathcal{P}(X)$. (subspace is a subset of a vector space)
+    \item closed in complement, closed in union (countable infinite or finite). (addition and multiplication are closed in subspace)
+    \item contain $X$ (therefore contain $\emptyset$ by closed in complement). (subspace contain $\mathbf{0}$)
+\end{itemize}
+\end{mynote}
+
+\begin{definition}[Measurable space]
+The pair $(X, \A)$ is called a measurable space. A set $A$ is measurable if $A \in \A$.
+\end{definition}
+
+\begin{example}[Trivial example]
+$X=\R$, $\A$ is the collection of all subsets of $\R$ (power set). Then $\A$ is $\sigma$-algebra. Trivial.
+\end{example}
+
+\begin{example}
+$X=\R$, $\A = \{A\subset\R: A \text{ is countable or } A^c \text{ is countable} \}$. $\A$ is $\sigma$-algebra.
+\end{example}
+
+\begin{proof}
+
+To prove $\A$ is $\sigma$-algebra, we gonna use Definition 2.2.
+
+We have $\emptyset$ is countable, then $\emptyset \in \A$. We have $\R$ which has its complement is $\emptyset$ is countable, then $\R \in \A$. Thus, $\A$ satisfied $(1.)$.
+
+If $A \in \A$, then $A$ is countable or its complement is countable. First case, if $A$ is countable, then $A^c$ has its complement which is $(A^c)^c=A$ is countable, then $A^c\in \A$. Second case, if $A^c$ is countable, then $A^c \in A$. Therefore, $\A$ satisfied $(2.)$.
+
+Consider $A_1, A_2,... \in \A$. First case, if all $A_i$ are countable, then its union will be countable, thus the union will be in $\A$. Second case, if there is a $A_j$ that has $A^c_j$ countable, then we have $(\bigcup_iA_i)^c=\bigcap_iA_i^c\subseteq A_j^c$. But $A_j^c$ is countable, then $(\bigcup_iA_i)^c$ is countable (subset of a countable set is countable). Then, $(\bigcup_iA_i)^c \in \A \Rightarrow \bigcup_iA_i \in \A$. So, $\A$ satisfied (3.).
+
+If you want to prove that the intersection is in $\A$ too, just use closed in complement and close in countable infinite union which was proven above.
+\end{proof}
+
+
+\begin{example}[Closed interval]
+Let $X=[0,1]$ and $\A=\{\emptyset, X, [0,\frac{1}{2}], (\frac{1}{2},1]\}$. $\A$ is $\sigma$-algebra. Easy to check.
+\end{example}
+
+\begin{example}[Finite set]
+$X=\{1,2,3\}$, $\A = \{\emptyset, X, \{1\}, \{2,3\}\}$. $\A$ is $\sigma$-algebra.
+\end{example}
+
+\begin{example}
+$X=[0,1]$ and $B_1,B_2,..., B_8$, pairwise disjoint, union of all $B_i$ is $X$, let $\A$ be the collection of all finite union of $B_i$. Then $\A$ is $\sigma$-algebra.
+\end{example}
+
+\begin{mynote}[$\sigma$-algebra is just coloring segments! (in finite, discrete setting; or see Example 2.8)]
+Imagine an array of 6 boxes, it is our $X$. In this example, we gonna use 3 segments. The first segment contains box 1,2; the second segment contains box 3,4,5; and the last segment contains box 6. We have a brush, to color those segment, and remember, we can only color segments, not boxes! Then, $\A$ is \textbf{all of the possible ways} that we can color those segment. For example, we can color segment 1, 3, but leave the segment 2. That's is a way to color those segments, and that way is belong to $\A$! Then, each segment have 2 options, that is no color or color. So the number of elements in $\A$ (finite case) is $2^3=8$. Generally, we have $|\A|=2^k$ with $X$ is finite, and $k$ is the number of segments. Hope this is helpful for you.
+\end{mynote}
+
+\begin{lemma}
+If $\A_{\alpha}$ is a $\sigma$-algebra for each $\alpha$ in some non-empty index set $I$, then $\bigcap_{\alpha\in I}\A_{\alpha}$ is $\sigma$-algebra.
+\end{lemma}
+
+\begin{proof}
+This comes directly from Definition 2.1 and 2.2.
+\end{proof}
+
+\section{Borel sigma-algebra}
+
+\begin{definition}[Smallest sigma algebra of $\mathcal{C}$]
+$\sigma(\mathcal{C}) = \bigcap\{\A_{\alpha}: \A_{\alpha} \text{ is $\sigma$-algebra}, \mathcal{C}\subset \A_{\alpha}\}$
+\end{definition}
+
+\begin{note}
+$\sigma(\mathcal{C})$ is not empty, we always have the power set in that intersection. By Lemma 2.10, $\sigma(\mathcal{C})$ is $\sigma$-algebra. And $\sigma(\mathcal{C})$ is the smallest sigma-algebra contains $\mathcal{C}$.
+\end{note}
+
+\begin{proposition}
+Here are some properties of $\sigma(\cdot)$:
+\begin{itemize}
+    \item \textbf{Monotonic:} $B\subset C$ then $\sigma(B) \subset \sigma(C)$.
+    \item \textbf{Idempotent:} $\sigma(\sigma(C)) = \sigma(C)$.
+\end{itemize}
+\end{proposition}
+
+\begin{definition}[Borel $\sigma$-algebra]
+Given $(X, d)$ is a metric space, let $\mathcal{G}$ is the set of all open set in $X$. Then $\mathcal{B} = \sigma(\mathcal{G})$ is Borel $\sigma$-algebra on $X$, elements of $\mathcal{B}$ is called Borel set, or Borel measurable.
+\end{definition}
+
+\begin{mynote}[Smallest sigma vs. span, why measure theory?]
+The smallest sigma algebra is "somehow" the same with span of a set of vector in linear algebra. The smallest sigma embeds an initial collection of subset to a "subspace" that preserves Boolean operator (union, intersection, complement), and that "subspace" is the smallest (in size, maybe).
+
+There is a note in the book, which is: In case $X$ is real line, $\mathcal{B} \neq \mathcal{P}(\R)$, it means that, not every subset of $\R$ is Borel measurable. That's why we need measure theory.
+\end{mynote}
+
+\begin{proposition}[Ways to generate $\mathcal{B}$, proof omitted]
+If $X = \R$, then $\mathcal{B}$ is generated by:
+\begin{itemize}
+    \item $C_1 =\{(a,b), a,b\in \R\}$.
+    \item $C_2 =\{[a,b], a,b\in \R\}$.
+    \item $C_3 =\{(a,b], a,b\in \R\}$.
+    \item $C_4 =\{(a,\infty), a\in \R\}$.
+\end{itemize}
+\end{proposition}
+
+\begin{note}
+You can see that in Proposition 3.5, you still can use closed intervals for creating Borel sigma-algebra (because Borel sigma-algebra still contains closed sets!).
+\end{note}
+
+\section{Exercises}
+
+All exercises in this note are from "Real analysis for Graduate Students" by Richard F. Bass.
+
+\begin{exercise}
+\textit{\textbf{Find an example of a set $X$ and two sigma-algebras $A_1$ and $A_2$, each consisting of subsets of $X$, such that $A_1 \cup A_2$ is not a sigma-algebra.}}
+
+$X = \{1,2,3\}, A_1=\{\emptyset, X, \{1\}, \{2,3\}\}, A_2=\{\emptyset, X, \{1,2\}, \{3\}\}$.
+Union of $A_1, A_2$ violates closed in intersection, $\{1,2\} \cap \{2,3\} = \{2\}\not\in (A_1\cup \A_2)$.
+\end{exercise}
+
+\begin{exercise}
+\textbf{\textit{See Exercise 2.2 p.15}}
+
+Let $X = \N$, and $\A_i$ is the $\sigma$-algebra generated by the partition $1-2-3-...-i-i+1,i+2,...$. Thus, $\A_i$ will consist of finite unions of finite unions from $\{1\}, \{2\}, \{3\},...,\{i\}$ and $\{i+1,i+2,i+3,...\}$.
+
+For example, let generate $\A_2$, which is from the partition $1-2-3,4,5...$. We have $\A_2=\{\emptyset, \N, \{1\}, \{2\}, \{1,2\}, R_2, R_2\cup \{1\}, R_2\cup \{2\}\}$, with $R_i = \{i+1,i+2,i+3,...\}$ and $i \in \N$.
+
+We want to proof that $\A_i \subset \A_{i+1}$. So let $x \in \A_i$. If $x$ is in the finite unions of $\{1\}, \{2\}, \{3\},...,\{i\}$ which is a subset of finite unions of $\{1\}, \{2\}, \{3\},...,\{i\}, \{i+1\}$, then $x \in \A_{i+1}$. If $x$ is in the finite unions from $\{1\}, \{2\}, \{3\},...,\{i\}$ and $\{i+1,i+2,i+3,...\}$ which is a subset of the finite unions from $\{1\}, \{2\}, \{3\},...,\{i+1\}$ and $\{i+2,i+3,i+4,...\}$ (because from the partition of $\A_{i+1}$, we can recreate $R_i$ by just union $R_{i+1}$ with $\{i+1\}$, after that we obtain $\A_{i}$). Thus $\A_{i}\subset \A_{i+1}$.
+
+Now we have already set up the initial condition of the exercise. For $\bigcup_i^{\infty}\A_i$ not to be a $\sigma$-algebra, we need to violate condition \textbf{3.} in Definition 2.1, which is closed in union (may countably infinite).
+
+Let $E= \{2,4,6,8,...\}$, which is the union of $\{2\}, \{4\},\{6\},...$ and $\{2k\} \in \bigcup_i^{\infty}\A_i$. Now we need to show that, $E \not\in \bigcup_i^{\infty}\A_i$ to violate \textbf{3.}. Assume $E \in \bigcup_i^{\infty}\A_i$. For a $I \in \bigcup_i^{\infty}\A_i$, it must be in some $\A_j$. Thus, any $I \in \bigcup_i^{\infty}\A_i$ must be in one of those 2 form: contain every elements of $R_j$ or contain no elements of $R_j$. Because $E \in \bigcup_i^{\infty}\A_i$, WLOG (we can extend to multiple $j$), assume there is a only $j$ such that $E \in \A_j$. If $E$ contain every elements of $R_j$, it is impossible, because $R_j$ contains odd numbers. If $E$ contain no elements of $R_j$, then $E$ will miss all even number after $j$. Therefore, $E \not\in \A_j \Rightarrow E \not\in \bigcup_i^{\infty}\A_i$, which is a contradiction. Then, $ E \not\in \bigcup_i^{\infty}\A_i$, violate condition \textbf{3.}. Thus, $\bigcup_i^{\infty}\A_i$ is not a $\sigma$-algebra in this case.
+\end{exercise}
+
+\begin{exercise}
+\textbf{\textit{See Exercise 2.5 p.16}}
+
+Before jumping into this exercise, you have to know that, $f^{-1}$ is not the inverse function of $f$ (because $f$ is not bijective!). In this case, $f^{-1}$ is the "inverse image function", which map $\mathcal{P}(Y) \rightarrow \mathcal{P}(X)$ and $f^{-1}(y) = \{x \in \mathcal{P}(X): f(x) = y\}$.
+
+For example, we have $X = \{1,2,3,4,5\}$, $f: X \rightarrow Y, Y=\{a,b,c,d,e,f\}, f(1) = a, f(2) = b, f(3) = c, f(4) = d, f(5) = d$. And with $f^{-1}: \mathcal{P}(Y) \rightarrow \mathcal{P}(X)$, I can just give you some examples of its result: $f^{-1}(\emptyset) = \emptyset, f^{-1}(\{a\}) = \{1\}, f^{-1}(\{b\}) = \{2\}, f^{-1}(\{c\}) = \{3\}, f^{-1}(\{a,c\}) = \{1, 3\}, f^{-1}(\{a,d,f\}) = \{1,4,5\}, f^{-1}(\{e,f\}) = \{\emptyset\}, f^{-1}(\{Y\}) = \{X\}$.
+
+After getting some senses what a reverse image function doing, we can go to the proof, of course by using 3 condition in Definition 2.1, 2.2.
+
+\begin{proof}
+(Using definition):
+
+\textbf{Contains empty set and $X$.} As we discussed above, we have $f^{-1}(\emptyset) = \emptyset$ and $f^{-1}(Y) = X$. Therefore, $\emptyset, X \in \mathcal{B} = \{f^{-1}(A): A \in \A \}$.
+
+\textbf{Closed in complement.} Let $B_0 \in \mathcal{B}$, then there is a $A \in \A$ s.t. $f^{-1}(A) = B_0$. By the property of $f^{-1}$, we have, $f^{-1}(A^c) = X\setminus B_0$. Then, $X\setminus B_0 = (B_0)^c\in \mathcal{B}$.
+
+\textbf{Closed in countable infinite union.} Let $B_1, B_2,... \in \mathcal{B}$. We have $\bigcup_i^{\infty}B_i = \bigcup_i^{\infty}f^{-1}(A_i) = f^{-1}(\bigcup_i^{\infty}A_i) \in \mathcal{B}$.
+\end{proof}
+\end{exercise}
+
+\end{document}
