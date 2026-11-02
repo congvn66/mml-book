@@ -1,0 +1,289 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% ==================================================
+% 1. PACKAGES
+% ==================================================
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{mathtools}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+% ==================================================
+% 2. MATHEMATICAL ENVIRONMENTS
+% ==================================================
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{exercise}[definition]{Exercise}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{counterexample}[definition]{Counterexample}
+\newtheorem{note}[definition]{Note}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+
+% ==================================================
+% 3. PERSONAL NOTE BOX
+% ==================================================
+
+\newtcolorbox{mynote}[1][Personal Note]{
+    enhanced,
+    breakable,
+    colback=yellow!5,
+    colframe=yellow!50!black,
+    title={#1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+}
+
+% ==================================================
+% 4. CUSTOM MATHEMATICAL COMMANDS
+% ==================================================
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\inner}[2]{\left\langle #1,#2 \right\rangle}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+% ==================================================
+% 5. DOCUMENT INFORMATION
+% ==================================================
+
+\title{\textbf{Measures}}
+
+% ==================================================
+% 6. DOCUMENT
+% ==================================================
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Motivation}
+
+\begin{mynote}[Measure is very natural]
+What is measure? You may encounter it right in the title of the subject: "Measure theory". Now you gonna know it, it just the generalization of the notion of length (in 1-dimension), area (in 2-dimensions), volume (in 3-dimensions). However, more "complex" thought of human, but still very natural, we want measure of union of disjoint sets to be the sum of measures, which is $m(\bigcup_{i=1}^nA_i) = \sum_{i=1}^nm(A_i)$ (if we extend it to countable infinite, we obtained a defining property of measure!).
+\end{mynote}
+
+
+\section{Definitions and Examples}
+
+
+\begin{definition}[Measure]
+Let $X$ be a set and $\A$ a $\sigma$-algebra consisting of subsets (w.r.t.) of $X$. A measure on $(X, \A)$ is a function $\mu: \A \rightarrow [0, \infty]$ such that:
+\begin{itemize}
+    \item $\mu(\emptyset)= 0$.
+    \item if $A_i \in \A, i=1,2,3,...$ are pairwise disjoint then $\mu(\bigcup_i^{\infty}A_i)=\sum_i^{\infty}\mu(A_i)$.
+\end{itemize}
+
+Then, the triple $(X, \A, \mu)$ is called a measure space.
+\end{definition}
+
+\begin{example}[Counting measure]
+$X$ any set, $\A$ is the collection of all subsets in $X$, $\mu(A)$ is the number of elements in $A$. Then, $\mu$ is a counting measure.
+\end{example}
+
+\begin{example}
+Let $X = \R$, $\A$ is the collection of all subsets of $\R$, $x_1, x_2,... \in \R$, $a_1, a_2,... \ge 0$. Then $\mu(A) = \sum_{i:x_i\in A}a_i$ is a measure.
+\end{example}
+
+\begin{example}[Point mass]
+Let $\delta_x(A) = 1$ if $x \in A$ and equals 0 otherwise. This measure is called point mass at $x$.
+\end{example}
+
+\begin{proposition}
+The following holds:
+\begin{itemize}
+    \item $(1)$ $A,B\in \A$ and $A\subset B$ then $\mu(A) \le \mu(B)$.
+    \item $(2)$ $A_i \in \A$, $A = \bigcup_i^{\infty}A_i$, then $\mu(A) \le \sum_i^{\infty}\mu(A_i)$.
+    \item $(3)$ $A_i \in \A$, $A_i \uparrow A$, then $\mu(A) = \lim_{n\rightarrow \infty}\mu(A_n)$.
+    \item $(4)$ $A_i \in \A$, $A_i \downarrow A$, if $\mu(A_1) < \infty$ then $\mu(A) = \lim_{n\rightarrow \infty}\mu(A_n)$.
+\end{itemize}
+\end{proposition}
+
+\begin{counterexample}[Counter for no less than infinity in $(4)$ of Prop 2.5]
+$\mu(A_1) < \infty$ is necessary. Let X be positive integer, $\mu$ is counting measure, and $A_i = \{i, i+1,...\}$. Then $A_i$ decrease and their intersection is $\emptyset$. But $\mu(A_i) = \infty$ for all $i$, but $\mu(\bigcap_i^{\infty}A_i) = \mu(\emptyset) = 0$. Then we have $0 = \mu(\emptyset) =^{\text{(using (4))}} \lim_{n\rightarrow\infty}\mu(A_n) =^{(\mu(A_i) = \infty \forall i)} \infty$, which is a contradiction.
+\end{counterexample}
+
+\begin{mynote}[Intuition for less than infinity condition in $(4)$]
+You have to understand what happen in Counterexample 2.6, then you may have some sense about $(4)$. The condition of $A_1$, prevent the case that if $A_1$'s measure is infinite, then the decreasing intersection may not finite, then measure of $A$ is not equal the $\lim$ (but if $A$ is infinite, $(4)$ is correct trivially, or even in case at some point, measure of some $A_j$ is finite after the infinite start).
+\end{mynote}
+
+\begin{definition}[Finite measure]
+
+A measure $\mu$ is finite if $\mu(X) < \infty$. A measure $\mu$ is $\sigma$-finite if there exist $E_i \in \A$ such that $\bigcup_i^{\infty}E_i = X$ and $\mu(E_i) < \infty$. If $\mu$ is finite, then $(X, \A, \mu)$ is called a finite measure space. Similarly, if $\mu$ is $\sigma$-finite, then $(X, \A, \mu)$ is called $\sigma$-finite measure space.
+\end{definition}
+
+\begin{mynote}[$X$ is the biggest boy]
+Worth mentioning again, because $\A$ is the collection of subset in $X$, therefore, $X$ will be the biggest element in $\A$.
+\end{mynote}
+
+\begin{definition}[Null set]
+Given $A \subset X$, if there is a $B \in \A$ such that $\mu(B) = 0$, then $A$ is called a null set. Note that, $A$ is not necessary in $\A$.
+\end{definition}
+
+\begin{definition}[Complete measure space]
+$(X, \A, \mu)$ is a complete measure space if a null set $A \subset X$, then $A\in \A$.
+\end{definition}
+
+\begin{note}
+We can complete a given measure space $(X, \A, \mu)$ to $(X, \overline\A, \overline\mu)$ by using $\overline\A$ is the smallest $\sigma$-algebra contains $\A$, and $\overline\mu$ such that $\overline\mu(B) = \mu(B) \forall B\in \A$.
+\end{note}
+
+\begin{note}[Probability measure]
+We obtained a probability measure when $\mu(X) = 1$. In this case, we usually write $(\Omega, \mathcal{F}, \mathbb{P})$ instead of $(X, \A, \mu)$.
+\end{note}
+
+
+\section{Exercises}
+
+All exercises in this note are from "Real analysis for Graduate Students" by Richard F. Bass.
+
+\begin{exercise}
+\textbf{\textit{See Exercise 3.1 p.20}}
+
+\begin{proof}
+(By using definition)
+
+Looking at Definition 2.1, we already have $\mu(\emptyset) = 0$. Then, we need to proof the $\sigma$-additivity by finite additivity and continuous from the bottom.
+
+Let $B_1, B_2,... \in \A$ and they are piecewise disjoint.
+
+Let $A_n = \bigcup_i^nB_i$, then we have $A_1 \subset A_2 \subset A_3 \subset ...$.
+
+Let $\bigcup_i^{\infty}B_i = B$, then $\bigcup_i^{\infty} A_i = B$.
+
+Now, we have 
+\[
+\mu(\bigcup_i^{\infty}A_i) = \lim_{n\rightarrow\infty}\mu(A_n) \text{ (continuous)}
+\]
+\[\Leftrightarrow \mu(\bigcup_i^{\infty}A_i) = \lim_{n\rightarrow\infty}\sum_{i=1}^{n}\mu(B_i) \text{ (finite additive)}
+\]
+\[
+\Leftrightarrow \mu(\bigcup_i^{\infty}A_i) = \mu(\bigcup_i^{\infty} B) = \sum_{i=1}^{\infty}\mu(B_i)
+\]
+which satisfy the second condition in Definition 2.1. Thus, $\mu$ is a measure.
+
+\end{proof}
+
+\end{exercise}
+
+\begin{exercise}
+\textbf{\textit{See Exercise 3.2 p.20}}
+\begin{proof}
+(By using definition)
+
+Let $B = \bigcup_i^{\infty}B_i$, $B_i$ piecewise disjoint.
+
+Let $A_n = \bigcup_{i=1}^{n}B_i$.
+
+Let $C_n = \bigcup_{i=n+1}^{\infty}B_i = B\setminus A_n$.
+
+For any $A \subseteq C$, we have $C = A \cup (C \setminus A) \Rightarrow \mu(C) = \mu(A) + \mu(C \setminus A) \ge \mu(A)$. Thus, $\mu$ is monotonic. Then, we have $\mu(B) < \mu(X) < \infty$ and $\mu(C_n) < \mu(X) < \infty$.
+
+Easy to see that, $C_1 \supset C_2 \supset...$ and $\bigcap_i^{\infty}C_i = \emptyset$, then $\lim_{n\rightarrow \infty}\mu(C_n) = 0$.
+
+We have:
+\[
+\mu(B) = \mu(A_n) + \mu(C_n) \text{ (finite additive)}
+\]
+
+\[
+\Leftrightarrow \lim_{n\rightarrow \infty}(\mu(B)) = \lim_{n\rightarrow \infty}(\mu(A_n)) + \lim_{n\rightarrow \infty}(\mu(C_n))
+\]
+
+\[
+\Leftrightarrow \mu(B) = \lim_{n\rightarrow \infty}(\sum_{i}^n\mu(B_i)) + 0 \text{ (finite additive and above continuous)}
+\]
+
+\[
+\Leftrightarrow \mu(B) = \mu(\bigcup_i B_i) = \sum_{i}^{\infty}\mu(B_i)
+\]
+which satisfy second condition, and $\mu \ge 0$ and $\mu(\emptyset) = 0$, then $\mu$ is a measure.
+
+\end{proof}
+\begin{note}
+In fact, in this exercise, I haven't used the condition $\mu(X) <\infty$. Maybe that condition is redundant, just for the sake of "duality" with Exercise 3.1.
+\end{note}
+\end{exercise}
+
+\begin{exercise}
+\textit{\textbf{See Exercise 3.4 p.20}}
+\begin{proof}
+(By equivalence transformation)
+
+$
+\mu(A\cup B) + \mu(A\cap B) = \mu(A\setminus B) + \mu(A\cap B) + \mu(B\setminus A) + \mu(A\cap B) = (\mu(A\setminus B) + \mu(A\cap B)) + (\mu(B \setminus A) + \mu(A\cap B)) = \mu(A) + \mu(B).
+$
+\end{proof}
+\end{exercise}
+
+\begin{exercise}
+\textbf{\textit{See Exercise 3.9 p.20}}
+\begin{proof}
+(Direct proof)
+
+Define $m_N(A) = m(A\cap (-N,N))$. Same for $n_N(A)$. (I)
+
+If $A = \R$, we have $m_N(\R) = n_N(\R) = m((-N,N)) < \infty$. Thus, $m_N, n_N$ are finite. (1)
+
+If $A$ is a open set in $(-N, N)$, then $m_N(A) = n_N(A) = m((a,b))$. (2)
+
+If $A = (a,b] \subseteq (-N, N)$, which we can write as $A = \bigcap_k(a,b +\frac{1}{k})$. With (1) and using Proposition 2.5, we have $m_N(A) = \lim_n(m_N((a, b + \frac{1}{n}))$. Using (2), we have $m_N(A) = \lim_n(n_N((a, b + \frac{1}{n})) = n_N(A)$. Similar method for $[a, b), [a,b]$.
+
+Then, we have $m_N(A) = n_N(A)$ for all $A \subseteq (-N,N)$. (3)
+
+Define $\A_0 = \{\text{finite union of intervals in (-N, N)}\}$. $\A_0$ is actually an algebra and (convince yourself) $\sigma(\A_0) = \sigma(\text{open intervals in (-N, N)}) := \mathcal{B}((-N,N))$. By using (3), we have $m_N(A) = n_N(A)$ for all $A \in \A_0$. (4)
+
+Now, we define a monotone class, $\mathcal{D} = \{A\in \sigma(\A_0): m_N(A) = n_N(A)\}$. The proof for $\mathcal{D}$ is a monotone class, I won't mention here, just use direct proof, Proposition 2.5 and (1).
+
+By (4), we have $\A_0 \subseteq \mathcal{D}$. Using the Monotone Class Theorem, we have $\sigma(\A_0) = \mathcal{B}((-N,N)) \subseteq \mathcal{D}$. Thus, we have $m_N(A) = n_N(A)$ for all $A \in \sigma(\A_0)$ for all $N$. (5)
+
+Now back to the problem, let $A \in \sigma(\{\text{open intervals of }\R\}) = \mathcal{B}$. Let $A_N = A\cap(-N,N) \in \sigma(\A_0)$, we have $A_N \uparrow A$. Using Proposition 2.5, (5) and (I), we have $m(A) = \lim_Nm(A_N) = \lim_Nm_N(A) = \lim_Nn_N(A) = \lim_Nn(A_N) = n(A)$.
+
+\end{proof}
+
+\begin{note}
+This exercise show you "something" in probability world, if $\Prob_X(A) = \Prob_Y(A)$ with $A$ is any open interval, then $\Prob_X = \Prob_Y$ for any valid input.
+\end{note}
+\end{exercise}
+
+\end{document}
