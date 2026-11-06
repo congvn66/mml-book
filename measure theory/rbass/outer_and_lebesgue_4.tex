@@ -1,0 +1,269 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% ==================================================
+% 1. PACKAGES
+% ==================================================
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{mathtools}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+% ==================================================
+% 2. MATHEMATICAL ENVIRONMENTS
+% ==================================================
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{exercise}[definition]{Exercise}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{counterexample}[definition]{Counterexample}
+\newtheorem{note}[definition]{Note}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+
+% ==================================================
+% 3. PERSONAL NOTE BOX
+% ==================================================
+
+\newtcolorbox{mynote}[1][Personal Note]{
+    enhanced,
+    breakable,
+    colback=yellow!5,
+    colframe=yellow!50!black,
+    title={#1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+}
+
+% ==================================================
+% 4. CUSTOM MATHEMATICAL COMMANDS
+% ==================================================
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\inner}[2]{\left\langle #1,#2 \right\rangle}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+% ==================================================
+% 5. DOCUMENT INFORMATION
+% ==================================================
+
+\title{\textbf{Outer measures and Lebesgue-Stieltjes measures}}
+
+% ==================================================
+% 6. DOCUMENT
+% ==================================================
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Motivation}
+
+\begin{mynote}[What we have?]
+After knowing what is a measure, the previous lecture didn't show us how to construct a measure that satisfied the definition. So constructing a measure is the main target of this lecture.
+\end{mynote}
+
+\section{Outer measures}
+\begin{definition}[Outer measure]
+Let $X$ be a set. An outer measure is a function $\mu^*$ defined on the collection of all subsets of $X$ such that:
+\begin{itemize}
+    \item (1) $\mu^*(\emptyset) = 0$;
+    \item (2) if $A \subset B$ then $\mu^*(A) \le \mu^*(B)$;
+    \item (3) $\mu^*(\bigcup_iA_i) \le \sum_i\mu^*(A_i)$ whenever $A_i$ are subsets of $X$.
+\end{itemize}
+\end{definition}
+
+\begin{mynote}[Outer measures vs. Measures]
+A measure in a measure space is defined on $(X, \A)$, but outer measure is defined on a (very) larger domain, which is the power set of $X$. But there is a trade off: a measure on a measure space has the countable additive, which mean if the union are countable (and of course disjoint), then the measure is calculated exactly. However, in outer measure's case, we can't assure that. There are some outer measures that don't satisfy countable lower continuous additivity, but must satisfy condition (3). And remember that, not every measures are outer measures, so throw away your thought of thinking outer measure contains measure. Outer measure is a guy with weaker properties (less structure) but defined on a larger domain.
+\end{mynote}
+
+
+\begin{definition}[Null set]
+A set $N$ is a null set w.r.t. $\mu^*$ if $\mu^*(N) = 0$.
+\end{definition}
+
+\begin{proposition}[Construction of an outer measure]
+Suppose $\mathcal{C}$ is a collection of subsets of $X$ such that $\emptyset \in \mathcal{C}$ and there exist $D_1, D_2,...$ in $\mathcal{C}$ such that $X = \bigcup_iD_i$. Suppose $l: \mathcal{C}\rightarrow [0, \infty] $ with $l(\emptyset) = 0$. Define
+
+\[
+\mu^*(E) = \inf\{\sum_{i=1}^{\infty}l(A_i): A_i \in \mathcal{C} \text{ for each } i \text{ and } E\subset \bigcup_{i=1}^{\infty}A_i\}.
+\]
+
+Then, $\mu^*$ is an outer measure.
+\end{proposition}
+
+\begin{note}
+$\mathcal{C}$ is the collection of "elementary" subset, that can cover $X$. You can see in the Proposition 2.3, $\mathcal{C}$ just need to be a collection of subsets, not even an algebra. Even more ridiculous, $l$ can be any function, as long as it has the specified domain and codomain. After that, we obtain an outer measure.
+\end{note}
+
+
+\begin{mynote}[Cover measuring]
+Outer measure is a "generous" way to measure something. Outer measure use many (countable) covers to cover the object, then sum the measure of those covers (which is $l$ in Proposition 2.3). However, we may have infinite ways to cover, then infinite value outer measure of a set. So, we need to take the best "approximation" of the initial set (which is the purpose of $\inf$). That's why outer measure just satisfied subadditivity ((3) in Definition 2.1), not additivity.
+\end{mynote}
+
+\begin{example}
+Let $X = \R$, $\mathcal{C}$ be the collection of all intervals with the form $(a, b]$. Let $l((a,b]) = b-a$. Define $\mu^*$ following Proposition 2.3, then $\mu^*$ is an outer measure. But, $\mu^*$ is not a measure on the collection of all subsets of $\R$.
+\end{example}
+
+\begin{definition}[$\mu^*$-measurable]
+Let $\mu^*$ be an outer measure. A set $A \subset X$ is $\mu^*$-measurable if:
+\[
+\mu^*(E) = \mu^*(E \cap A) + \mu^*(E\cap A^c)
+\]
+
+for all $E \in X$.
+\end{definition}
+
+\begin{mynote}[Intuition for $\mu^*$-measurable]
+A $J$ is $\mu^*$-measurable when it divide the space into 2 piece (in $J$ and out $J$) and if we take any 2 pieces (can be very ugly) in that 2 part, then that 2 pieces satisfied additivity: $A\subseteq J, B\subseteq J^c \Rightarrow m^*(A\cup B) = m^*(A) + m^*(B)$.
+\end{mynote}
+
+\begin{mynote}[Assignment doesn't mean measurable!]
+You may think that, if $\mu^*$ assigned a number (not exactly assign, constructed the number may be more correctly, see Proposition 2.3) to a set $A \in \mathcal{P}(X)$, then $A$ is ($\mu^*$)-measurable. But, of course, the answer is no. It must satisfy a condition that is for every subset of $X$ that $A$ cut (pass through), then $A$ will divide that subset into 2 part (which is $E \cap A$ and $E\cap A^c$, you can check it for yourself that union of that 2 disjoint sets equal the initial subset $E$ of $X$). Then, the condition is: sum of $\mu^*$ measurement of that 2 disjoint set, must equal the $\mu^*$ measurement of the initial set $E$ (about the non-overlapped case, I think the equation always right). So, if there is a subset that $A$ pass through but doesn't satisfy the equation, mathematically mean: $\mu^*(E) < \mu^*(E \cap A) + \mu^*(E\cap A^c)$, then $A$ is not $\mu^*$-measurable. The Carathéodory equation (Definition 2.6) is messing with condition (3) in Definition 2.1, instead of $\le$, it just takes $=$.
+\end{mynote}
+
+\begin{theorem}[Carathéodory theorem]
+Let $\mu^*$ is an outer measure on $X$, let $\A =\{A\subseteq X: A \text{ is }\mu^* \text{ measurable}\}$. Then, we have: $\A$ is a $\sigma$-algebra w.r.t. $X$; $\mu^*$ restricted on $\A$ is a measure on $\A$; if $\mu^*(N) = 0$ then $N \in \A$.
+\end{theorem}
+
+\begin{note}
+Carathéodory theorem turns any outer measure to "good" measure that we learned in "Measures" lecture.
+\end{note}
+
+\section{Lebesgue-Stieltjes measures}
+\subsection{Setting}
+Let $X = \R$, $\mathcal{C}$ is the collection of intervals with the form $(a,b]$, $\alpha(x)$ is a increasing function and right continuous function: $\alpha(x) \le \alpha(y)$ if $x \le y$ and $\lim_{z\rightarrow x^+}\alpha(z) = \alpha(x)$.
+\subsection{Target}
+We need to build a measure such that $m((a,b]) =  \alpha(b) - \alpha(a)$. But the problem is, we can't build a measure that can measure every subset of $\R$ that satisfied the condition mentioned above (Vitali's stuffs). Thus, we need to restrict the algebra that the measure lives on, not the power set of $\R$.
+
+\subsection{The building process}
+\begin{definition}[Pre-measure]
+A function $l$ is a pre-measure on $S$ if:
+\begin{itemize}
+    \item (1) $l(A) \ge 0$ for every $A \in S$.
+    \item (2) $l(\emptyset) = 0$.
+    \item (3) $A_1, A_2,... \in S$ piecewise disjoint, and $\bigcup_iA_i \in S$, then $l(\bigcup_iA_i) = \sum_il(A_i)$.
+\end{itemize}
+\end{definition}
+
+\begin{note}
+$S$ doesn't have to be a algebra. And note that, we chose $(a,b]$ to satisfy the condition (3) of the definition, $(a,b)$ and $[a,b]$ won't satisfy (3) ($[a,b)$ may satisfy too, but in the book, they chose $(a,b]$).
+\end{note}
+
+Define $l((a,b]) = \alpha(b) - \alpha(a)$, then $l$ is a pre-measure on the collection of sets with the form $(a,b]$.
+
+Define an outer measure:
+\[
+m^*(E) = \inf\{\sum_i^{\infty}l(A_i): A_i\in \{(a,b]\}, E\subseteq\bigcup_i^{\infty}A_i\}.
+\]
+
+It is easy to see that, $m^*$ is a outer measure (Proposition 2.3), and if we restrict $m^*$ on the algebra that its elements are $m^*$-measurable, then $m^*$ is a measure.
+
+In the book, after those settings, we have 2 every important lemma and proposition, but I just want to mention it here very briefly, which is $m^*$ extends $l$: $m^*((a,b]) = l((a,b])$. (I)
+
+\begin{proposition}
+Every set in the Borel $\sigma$-algebra on $\R$ is $m^*$-measurable.
+\end{proposition}
+
+Using Proposition 3.3, we have $m^*$ is a measure on the Borel sigma-algebra on $\R$. And we can see that, the Borel can be generated by $\sigma(\{(a,b]\})$ and (I), this measure satisfy the target (Subsection 3.2). Now, the algebra that the measure lives on is the Borel $\sigma$-algebra. It is worth mentioning again, the Borel is not (may be smaller) the power set of $\R$.
+
+After everything, we obtained a measure $m^*$, in the measure space $(\R, \mathcal{B}, m^*)$, with $\mathcal{B}$ is the Borel sigma-algebra of $\R$ and this measure satisfied the target at Subsection 3.2. $m^*$ is called Lebesgue–Stieltjes measure on Borel.
+
+\begin{note}[Lebesgue measure]
+If we set $\alpha(x) = x$, then we call the measure is Lebesgue measure and drop the $*$ off $m^*$.
+\end{note}
+
+\section{Examples and Related results}
+
+\begin{example}
+Let $m$ be Lebesgue measure. If $x \in \R$, then $\{x\}$ is closed set and hence is in Borel (Borel measurable) (1). Additionally, we have:
+\[
+m(\{x\}) = \lim_{n\rightarrow \infty}((x-\frac{1}{n}, x]) = \lim_{n\rightarrow \infty}(x - x + \frac{1}{n}) = 0.
+\]
+
+With the result above, we have the following results:
+\[
+m([a,b]) = m(\{a\}) + m((a,b]) = 0 + b-a = b-a.
+\]
+and
+\[
+m((a,b)) = m((a,b])-m(\{b\}) = b-a-0 =b-a.
+\]
+
+Using (1), and the fact that $\sigma$-algebra is closed under countable union, then countable sets are Borel measurable. Because adding many 0 still output a 0, then the measure of countable sets are 0.
+\end{example}
+
+\begin{example}[Uncountable with 0-measure]
+This is extremely complicated. I won't mention the detail here. But Cantor set, which is in Borel (therefore Lebesgue measurable), is uncountable (same cardinality with $[0,1]$), contains no open intervals. Even being the same cardinality with $[0,1]$, while the measurement of $[0,1]$ is 1, but the measurement of the Cantor set is 0 (for the detail of constructing a Cantor set, see in the book p.34).
+\end{example}
+
+\begin{example}[Cantor-Lebesgue function]
+A continuous, increasing (from 0 to 1) but the derivative is equal 0 almost everywhere. Then this characteristic gonna mess with integration.
+\end{example}
+
+\begin{example}[Fat Cantor]
+Same with Cantor, but we gonna remove more in the procedure. This makes Fat Cantor has the measurement $> 0$. However, Fat Cantor still contains no open intervals. 
+\end{example}
+
+\begin{proposition}
+Let $A \subset [0,1]$ Lebesgue measurable. Let $m$ is Lebesgue measure. We have the following:
+\begin{itemize}
+    \item (1) Given $\epsilon >0$, there exists an open set $G$ so that $m(G\setminus A) < \epsilon$ and $G \supset A$.
+    \item (2) Given $\epsilon >0$, there exists an closed set $F$ so that $m(A\setminus F) < \epsilon$ and $F \subset A$.
+    \item (3) There exists a set $H$ which contains $A$ that is the countable intersection of a decreasing sequence of open sets (Borel level 2) and $m(H \setminus A) =0$.
+    \item (4) There exists a set $F$ which is contained in $A$ that is the countable union of a increasing sequence of closed sets (Borel level 2) and $m(F \setminus A) =0$.
+
+\end{itemize}
+\end{proposition}
+
+\begin{corollary}[Structure of Lebesgue algebra]
+\[
+\mathcal{L} = \{B \cup N: B\in \mathcal{B}, N \text{ null}\}.
+\]
+It means Lebesgue $=$ Borel $+$ Null sets. This result comes directly from $(4)$ of Proposition 4.5.
+\end{corollary}
+
+\begin{mynote}[Small note about Borel-algebra]
+An element in Borel algebra can always be written explicitly by using countable Boolean operator with "basic" sets (finite set, open intervals, closed intervals, half-closed,...). If "something" (very weird) can't be written in that fashion, so it is not Borel. And remember that, Cantor is in Borel, so Borel is not always "good", Borel still can be very "weird".
+\end{mynote}
+\end{document}

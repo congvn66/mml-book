@@ -1,0 +1,193 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% ==================================================
+% 1. PACKAGES
+% ==================================================
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{mathtools}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+% ==================================================
+% 2. MATHEMATICAL ENVIRONMENTS
+% ==================================================
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{exercise}[definition]{Exercise}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{counterexample}[definition]{Counterexample}
+\newtheorem{note}[definition]{Note}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+
+% ==================================================
+% 3. PERSONAL NOTE BOX
+% ==================================================
+
+\newtcolorbox{mynote}[1][Personal Note]{
+    enhanced,
+    breakable,
+    colback=yellow!5,
+    colframe=yellow!50!black,
+    title={#1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+}
+
+% ==================================================
+% 4. CUSTOM MATHEMATICAL COMMANDS
+% ==================================================
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\inner}[2]{\left\langle #1,#2 \right\rangle}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+% ==================================================
+% 5. DOCUMENT INFORMATION
+% ==================================================
+
+\title{\textbf{Notations}}
+
+% ==================================================
+% 6. DOCUMENT
+% ==================================================
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Useful facts}
+
+\begin{theorem}[Sum of arbitary set of numbers]
+We have the following:
+\[
+\sum_{\alpha\in A}x_{\alpha} = \sup\set{\sum_{F\subset A,\alpha \in F}x_{\alpha} \text{ and } F \text{ finite}}.
+\]
+\end{theorem}
+
+
+\begin{mynote}[Axiom of choice]
+If we have infinite non-empty sets, there will always exist a way that we could take an element of each set.
+\end{mynote}
+
+
+\section{Exercises}
+
+All exercises are from \textit{An Introduction to Measure Theory} by Terence Tao.
+
+\begin{exercise}
+\textbf{\textit{See Exercise 0.0.1 p.xiii.}}
+
+\textbf{Proof idea}. The exercise wants us to proof that, when a sum of infinite (may uncountable) of non-negative numbers is finite, then that sequence has countable positive numbers.  We need to prove $U = \set{x_{\alpha} > 0: \alpha \in A}$ is countable. Of course if we try to count it or prove it countable directly, it gonna be hard. So we gonna divide $U$ to smaller sets, then prove those smaller sets are countable, then $U$ is countable.
+
+\begin{proof}
+Let $U_n = \set{\alpha\in A: x_{\alpha}\ge \frac{1}{n}}$.
+
+Hence, we have $U_n \uparrow U$. (1)
+
+Let the sum: $S = \sum_{\alpha \in A}x_\alpha = M < \infty$.
+
+Here, we assume each $U_n$ is infinite for all $n$.
+
+Then, we take a finite number in $U_n$, to try to calculate $S$, but $U_n$ is infinite, then we could take arbitrary large number in that, suppose we take $k$ numbers, then:
+\[
+\sum_{F\subset U_n, x_\alpha \in F}x_\alpha \ge \frac{1}{n}k.
+\]
+
+But we can take arbitrary large $k$, then we choose $k = (nM + 3)$, then we have:
+
+\[
+\sum_{F\subset U_n, x_\alpha \in F}x_\alpha \ge \frac{1}{n}(nM+3) = M + \frac{3}{n}>M.
+\]
+
+but:
+
+\[
+\sum_{F\subset U_n, x_\alpha \in F}x_\alpha < M.
+\]
+(by using Theorem 1.1).
+
+Then, it is a contradiction, $U_n$ must be finite. (2)
+
+From (1) and (2), $U$ must be finite, hence it is countable.
+\end{proof}
+\end{exercise}
+
+\begin{exercise}
+
+\textbf{\textit{This is the proof for Theorem 0.0.2 p.xiii.}}
+\begin{proof}
+\textbf{Prove $\sum_{(n,m)\in \N^2}x_{n,m}\le \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}$}:
+
+We have $\sum_{(n,m)\in \N^2}x_{n,m} = \sup{\sum_{F\subset \N^2, F \text{ finite}, (n,m)\in F}x_{n,m}}$ by Theorem 1.1.
+
+Take a random finite $F$, then we can always find $M$ and $N$ such that $M= \max\set{m:(n,m)\in F}$ and $N= \max\set{n:(n,m)\in F}$. After that, construct a rectangle: $\set{1,2,3,...,N} \times \set{1,2,3,...,M}$ We have:
+\[
+\sum_{(n,m)\in F}x_{n,m} \le \sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m} \le \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}.
+\]
+for all finite $F$. Then:
+
+\[
+\sup\set{\sum_{(n,m)\in F}x_{n,m}} = \sum_{(n,m)\in \N^2}x_{n,m}  \le \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}.
+\]
+
+
+\textbf{Prove $\sum_{(n,m)\in \N^2}x_{n,m}\ge \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m}$}:
+
+With any finite $M = 1,2,3...$ and $N = 1,2,3,...$ we have:
+
+\[
+\sum_{n=1}^{N}\sum_{m=1}^{M}x_{n,m} \le \sum_{(n,m)\in \N^2}x_{n,m} 
+\]
+(by using Theorem 1.1), then if we take $\lim$ on the left hand side, we will obtain the inequality.
+
+\textbf{Prove $\sum_{n=1}^{\infty}\sum_{m=1}^{\infty}x_{n,m} = \sum_{m=1}^{\infty}\sum_{n=1}^{\infty}x_{n,m}$}
+
+Very same concept, for finite, we can always interchange the index, but in the infinite case, you need to take $\lim$ on both side. Note that, the order of taking $\lim$ matters.
+\end{proof}
+
+
+\end{exercise}
+
+\end{document}
